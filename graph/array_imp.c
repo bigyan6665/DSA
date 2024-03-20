@@ -65,35 +65,30 @@ void printGraph(struct Graph *var)
 }
 
 // Function to free the memory allocated for the graph
-void destroyGraph(struct Graph *var)
-{
-    for (int i = 0; i < var->numVertices; ++i)
-        free(var->adjMatrix[i]);
-    free(var->adjMatrix);
-    free(var);
-}
+// void destroyGraph(struct Graph *var)
+// {
+//     for (int i = 0; i < var->numVertices; ++i)
+//         free(var->adjMatrix[i]);
+//     free(var->adjMatrix);
+//     free(var);
+// }
 
 int main()
 {
     struct Graph obj;
     // Create a graph with 5 vertices
     createGraph(&obj, 5);
-
     // Add edges to the graph
     addEdge(&obj, 0, 1, 50);
-    // addEdge(&obj, 0, 1, 10);
     addEdge(&obj, 0, 4, 60);
     addEdge(&obj, 1, 2, 36);
     addEdge(&obj, 1, 3, 67);
     addEdge(&obj, 1, 4, 78);
     addEdge(&obj, 2, 3, 79);
     addEdge(&obj, 3, 4, 44);
-
     // Print the adjacency matrix
     printGraph(&obj);
-
     // Free the memory
-    destroyGraph(&obj);
-
+    // destroyGraph(&obj);
     return 0;
 }
