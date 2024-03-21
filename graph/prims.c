@@ -51,46 +51,39 @@ void printMST(struct graph *mst, int E)
     printf("Minimum Cost Spanning Tree: %d\n", minimumCost);
 }
 
-void swapedge(struct edge *e1, struct edge *e2)
-{
-    struct edge temp = *e1;
-    *e1 = *e2;
-    *e2 = temp;
-}
-
 void MSTKRUSKALS(struct graph *g)
 {
     int V = g->v;
     struct graph *mst = creategraph(V, V - 1);
     int E = 0; // An index variable, used for mst->EDGE[]
-    int i = 0; // An index variable, used for sorted edges
-
-    // Sorting the edges in ascending order of their weights using bubble sort
-    for (int i = 0; i < g->e - 1; i++)
+    for (int j = 0; j < g->e - 1; j++)
     {
-        for (int j = i + 1; j < g->e; j++)
+        struct edge smallest;
+        smallest.wt = 10000;
+        for (int i = j; i < g->e - 1; i++)
         {
-            if (g->EDGE[i].wt > g->EDGE[j].wt)
+            if (smallest.wt < g->EDGE[i].wt)
             {
-                swapedge(&g->EDGE[i], &g->EDGE[j]);
+                smallest = *g->EDGE;
             }
         }
-    }
 
-    // Initialize parent array for disjoint set
-    for (int v = 0; v < V; v++)
-        parent[v] = v;
+        // Initialize parent array for disjoint set
+        for (int v = 0; v < V; v++)
+            parent[v] = v;
 
-    // Apply Kruskal's algorithm
-    while (E < V - 1 && i < g->e)
-    {
-        struct edge next_edge = g->EDGE[i++];
-        int x = find(next_edge.src);
-        int y = find(next_edge.dest);
-        if (x != y)
+        // Apply Kruskal's algorithm
+        int i = 0; // An index variable, used for sorted edges
+        while (E < V - 1 && i < g->e)
         {
-            mst->EDGE[E++] = next_edge;
-            unionSet(x, y);
+            struct edge next_edge = g->EDGE[i++];
+            int x = find(next_edge.src);
+            int y = find(next_edge.dest);
+            if (x != y)
+            {
+                mst->EDGE[E++] = next_edge;
+                unionSet(x, y);
+            }
         }
     }
     printMST(mst, V - 1);

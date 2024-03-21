@@ -19,7 +19,7 @@ struct linked_list *create_ll()
     ll->last = NULL;
     return ll;
 }
-void insert_start(struct linked_list *ll, int x)
+void insert_end(struct linked_list *ll, int x)
 {
     ll->newnode = (struct Node *)calloc(1, sizeof(struct Node));
     ll->newnode->data = x;
@@ -31,8 +31,29 @@ void insert_start(struct linked_list *ll, int x)
     }
     else
     {
-        ll->newnode->next = ll->first;
-        ll->first = ll->newnode;
+        ll->last->next = ll->newnode;
+        ll->newnode->next = NULL;
+        ll->last = ll->newnode;
+    }
+}
+void delete_last(struct linked_list *ll)
+{
+    if (ll->first == NULL && ll->last == NULL)
+    {
+        printf("\nThere is no node in the linked list!!!\n");
+        return;
+    }
+    else
+    {
+        struct Node *temp;
+        temp = ll->first;
+        while (temp->next != ll->last)
+        {
+            temp = temp->next;
+        }
+        ll->last = temp;
+        ll->last->next = NULL;
+        printf("\nlast node deleted successfully.\n");
     }
 }
 void display(struct linked_list *ll)
@@ -53,9 +74,11 @@ void display(struct linked_list *ll)
 int main()
 {
     struct linked_list *ll = create_ll();
-    insert_start(ll, 5);
-    insert_start(ll, 7);
-    insert_start(ll, 9);
+    insert_end(ll, 5);
+    insert_end(ll, 7);
+    insert_end(ll, 9);
+    display(ll);
+    delete_last(ll);
     display(ll);
     return 0;
 }

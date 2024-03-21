@@ -4,6 +4,7 @@ struct Node
 {
     int data;
     struct Node *next;
+    struct Node *prev;
 };
 struct linked_list
 {
@@ -19,20 +20,23 @@ struct linked_list *create_ll()
     ll->last = NULL;
     return ll;
 }
-void insert_start(struct linked_list *ll, int x)
+void insert_end(struct linked_list *ll, int x)
 {
     ll->newnode = (struct Node *)calloc(1, sizeof(struct Node));
     ll->newnode->data = x;
     if (ll->first == NULL && ll->last == NULL)
     {
         ll->newnode->next = NULL;
+        ll->newnode->prev = NULL;
         ll->first = ll->newnode;
         ll->last = ll->newnode;
     }
     else
     {
-        ll->newnode->next = ll->first;
-        ll->first = ll->newnode;
+        ll->newnode->prev = ll->last;
+        ll->newnode->next = NULL;
+        ll->last->next = ll->newnode;
+        ll->last = ll->newnode;
     }
 }
 void display(struct linked_list *ll)
@@ -53,9 +57,9 @@ void display(struct linked_list *ll)
 int main()
 {
     struct linked_list *ll = create_ll();
-    insert_start(ll, 5);
-    insert_start(ll, 7);
-    insert_start(ll, 9);
+    insert_end(ll, 5);
+    insert_end(ll, 7);
+    insert_end(ll, 9);
     display(ll);
     return 0;
 }

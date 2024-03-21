@@ -4,6 +4,7 @@ struct Node
 {
     int data;
     struct Node *next;
+    struct Node *prev;
 };
 struct linked_list
 {
@@ -26,12 +27,16 @@ void insert_start(struct linked_list *ll, int x)
     if (ll->first == NULL && ll->last == NULL)
     {
         ll->newnode->next = NULL;
+        ll->newnode->prev = NULL;
         ll->first = ll->newnode;
         ll->last = ll->newnode;
     }
     else
     {
+        ll->first->prev = ll->newnode;
         ll->newnode->next = ll->first;
+        ll->newnode->prev = ll->last;
+        ll->last->next = ll->newnode;
         ll->first = ll->newnode;
     }
 }
@@ -44,11 +49,11 @@ void display(struct linked_list *ll)
     }
     struct Node *i;
     i = ll->first;
-    while (i != NULL)
+    do
     {
         printf("%d\t", i->data);
         i = i->next;
-    }
+    } while (i != ll->first);
 }
 int main()
 {

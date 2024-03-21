@@ -38,6 +38,11 @@ void insert_end(struct linked_list *ll, int x)
 }
 void display(struct linked_list *ll)
 {
+    if (ll->first == NULL && ll->last == NULL)
+    {
+        printf("\nThere is no node in the linked list!!!\n");
+        return;
+    }
     struct Node *i;
     i = ll->first;
     do

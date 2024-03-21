@@ -4,6 +4,7 @@ struct Node
 {
     int data;
     struct Node *next;
+    struct Node *prev;
 };
 struct linked_list
 {
@@ -26,12 +27,15 @@ void insert_start(struct linked_list *ll, int x)
     if (ll->first == NULL && ll->last == NULL)
     {
         ll->newnode->next = NULL;
+        ll->newnode->prev = NULL;
         ll->first = ll->newnode;
         ll->last = ll->newnode;
     }
     else
     {
         ll->newnode->next = ll->first;
+        ll->newnode->prev = NULL;
+        ll->first->prev = ll->newnode;
         ll->first = ll->newnode;
     }
 }
