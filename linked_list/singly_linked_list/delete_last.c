@@ -43,6 +43,13 @@ void delete_last(struct linked_list *ll)
         printf("\nThere is no node in the linked list!!!\n");
         return;
     }
+    else if (ll->first == ll->last)
+    {
+        free(ll->first);
+        ll->first = NULL;
+        ll->last = NULL;
+        printf("\nlast node deleted successfully.\n");
+    }
     else
     {
         struct Node *temp;
@@ -75,8 +82,8 @@ int main()
 {
     struct linked_list *ll = create_ll();
     insert_end(ll, 5);
-    insert_end(ll, 7);
-    insert_end(ll, 9);
+    // insert_end(ll, 7);
+    // insert_end(ll, 9);
     display(ll);
     delete_last(ll);
     display(ll);

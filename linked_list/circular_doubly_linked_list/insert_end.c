@@ -26,8 +26,8 @@ void insert_end(struct linked_list *ll, int x)
     ll->newnode->data = x;
     if (ll->first == NULL && ll->last == NULL)
     {
-        ll->newnode->next = NULL;
-        ll->newnode->prev = NULL;
+        ll->newnode->next = ll->newnode;
+        ll->newnode->prev = ll->newnode;
         ll->first = ll->newnode;
         ll->last = ll->newnode;
     }
